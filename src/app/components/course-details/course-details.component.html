@@ -1,0 +1,74 @@
+<div *ngIf="course" class="course-details-container">
+  <h2 class="course-title">{{ course.nombre }}</h2>
+
+  <img [src]="course.portada || 'assets/default-image.png'" alt="Course Image" class="course-image" />
+
+  <div class="course-info">
+    <p><strong>Descripción:</strong> {{ course.descripcion }}</p>
+    <p><strong>Dificultad:</strong> {{ course.dificultad }}</p>
+    <p><strong>Categoria:</strong> {{ course.categoriaId }} </p>
+  </div>
+
+  <!-- Contenedor de los botones -->
+  <div class="button-container">
+    <!-- Botón para inscribirse en el curso -->
+    <button class="enroll-btn" (click)="enrollInCourse()" *ngIf="!isEnrolled">
+      Inscribirse en el Curso
+    </button>
+
+    <!-- Mensaje de inscripción -->
+    <p *ngIf="isEnrolled" class="enrolled-message">Ya estás inscrito en este curso</p>
+
+    <!-- Botón para volver -->
+    <button class="back-btn" (click)="goBack()">Volver a la lista de cursos</button>
+  </div>
+</div>
+<br><br><br>
+
+<div *ngIf="lecciones" class="course-details-container" >
+  <center><h3>Lecciones</h3></center>
+  <button class="enroll-btn" (click)="addLesson()">Agregar Lección</button>
+  <br><br>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <table class="table table-striped table-hover table-bordered">
+          <thead class="table-dark">
+          <tr>
+            <th>Título</th>
+            <th>Duración Estimada</th>
+            <th>Contenido</th>
+            <th>Acciones</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let leccion of lecciones">
+            <td>{{ leccion.titulo }}</td>
+            <td>{{ leccion.duracionEstimada }} min</td>
+            <td>{{ leccion.contenido | slice:0:50 }}...</td>
+            <td>
+              <div class="btn-group" role="group">
+                <button class="btn btn-primary btn-sm" (click)="viewSubject(leccion.idLeccion)">
+                  <i class="bi bi-eye"></i> Ver
+                </button>
+                <button class="btn btn-warning btn-sm" (click)="editLesson(leccion.idLeccion)">
+                  <i class="bi bi-pencil"></i> Editar
+                </button>
+                <button class="btn btn-danger btn-sm" (click)="deleteLesson(leccion.idLeccion)">
+                  <i class="bi bi-trash"></i> Eliminar
+                </button>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mostrar mensaje si no se encontró el curso -->
+  <div *ngIf="!course" class="no-course-message">
+    <p>Curso no encontrado.</p>
+    <button class="back-btn" (click)="goBack()">Volver a la lista de cursos</button>
+  </div>
+</div>
