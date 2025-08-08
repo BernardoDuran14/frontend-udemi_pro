@@ -1,10 +1,12 @@
-# Frontend Dockerfile
-FROM node:18 as build
+# Etapa 1: Construcción con Node
+FROM node:18 AS build
 WORKDIR /app
-COPY . .
+COPY package*.json ./
 RUN npm install
-RUN npm run build --configuration=production
+COPY . .
+RUN npm run build --prod
 
+# Etapa 2: Servir con Nginx
 FROM nginx:alpine
 COPY --from=build /app/dist/ /usr/share/nginx/html
 EXPOSE 80
