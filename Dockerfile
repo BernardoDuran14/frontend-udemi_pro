@@ -1,20 +1,11 @@
-# Usa una imagen de Node
-FROM node:18
-
-# Crea el directorio de trabajo
+# Frontend Dockerfile
+FROM node:18 as build
 WORKDIR /app
-
-# Copia package.json y package-lock.json
-COPY package*.json ./
-
-# Instala dependencias
-RUN npm install
-
-# Copia el resto de archivos
 COPY . .
+RUN npm install
+RUN npm run build --configuration=production
 
-# Expone el puerto
-EXPOSE 4200
-
-# Comando para iniciar Angular
-CMD ["npm", "run", "start"]
+FROM nginx:alpine
+COPY --from=build /app/dist/ /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
