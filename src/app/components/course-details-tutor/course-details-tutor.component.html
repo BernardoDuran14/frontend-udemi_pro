@@ -15,10 +15,10 @@
     </button>
 
     <!-- Botón para volver -->
-    <button class="back-btn" (click)="goBack()">Volver a la  lista de cursos</button>
+    <button class="back-btn" (click)="goBack()">Volver a la lista de cursos</button>
 
     <!-- Botón para eliminar el curso -->
-    <button class="enroll-btn" (click)="deleteCourse(course.id)">Eliminar Curso</button>
+    <button class="enroll-btn" (click)="deleteCourse(course.id)">Eliminar Curso </button>
   </div>
 </div>
 
@@ -68,6 +68,6 @@
   <!-- Mostrar mensaje si no se encontró el curso -->
   <div *ngIf="!course" class="no-course-message">
     <p>Curso no encontrado.</p>
-    <button class="back-btn" (click)="goBack()">Volver a la lista de cursos</button>
+    <button class="back-btn" (click)="goBack()">Volver a la lista de  cursos</button>
   </div>
 </div>
